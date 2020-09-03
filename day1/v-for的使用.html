@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<div id="coco">
+    姓名:{{man.name}}
+    年龄:{{man.age}}
+    性别:{{man.sex}}<br>
+    <span v-for="(value,index,key) in man" :key="index">
+        {{index}}.{{key}}:{{value}}
+    </span><br>
+    <span v-for="(value,index) in arry" :key="index">
+        {{index+1}}.{{value}}<br>
+    </span><br>
+    <span v-for="(value,index) in x" :key="index">
+        {{index+1}}.姓名:{{value.name}},年龄:{{value.age}}<br>
+    </span>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {
+            man:{name:'小明',age:18,sex:'男'},
+            arry:[20,30,40,50],
+            x:[{name:'牛',age:18},{name:'龙',age:18}]
+        },
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+        },
+    })
+</script>
+</html>

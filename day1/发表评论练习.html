@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<script src="link/vue.min.js"></script>
+<div id="coco">
+    <input type="text" v-model="msg">
+    <button @click="add">发表评论</button>
+    <br>
+    <span v-for="(value,index) in arry" :key="index">
+        {{index+1}}.{{value}} <a href="javascript:" @click="del(index)">del</a><br>
+    </span>
+    <span>count:{{arry.length}}条</span><br>
+    <button @click="delall" v-show="arry.length!=0">清空评论</button>
+</div>
+</body>
+<script>
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {
+            msg: '',
+            arry: ['城南花已开', '但凡有点花生米', '也不至于醉成这样']
+        },
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+            add() {
+                //添加留言到末尾
+                if (this.msg) {
+                    this.arry.push(this.msg)
+                    this.msg = ''
+                }
+
+                //添加留言到首行
+                // this.arry.unshift(this.msg)
+                // this.msg=''
+            },
+            del(index) {
+                this.arry.splice(index, 1)
+            },
+            delall() {
+                this.arry = []
+            }
+        },
+    })
+</script>
+</html>

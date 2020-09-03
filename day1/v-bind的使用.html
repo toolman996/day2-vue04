@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <style>
+        .a{
+            width: 66px;
+            height: 66px;
+        }
+    </style>
+</head>
+<body>
+<div id="coco">
+    <img :src="link" alt="" :title="city" :class="{a: is_true}"><br>
+    <button @click="change_img">改变图片</button><br>
+    <button @click="change_css">改变样式</button>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {
+            is_true:true,
+            city:'杭州',
+            link:'https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg',
+
+        },
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+            change_img(){
+                this.link='https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3892521478,1695688217&fm=26&gp=0.jpg'
+            },
+            change_css(){
+                this.is_true=!this.is_true
+            }
+        },
+    })
+</script>
+</html>

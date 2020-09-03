@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<div id="coco">
+    <span v-show="true">显示</span><br>
+    <span v-show="show_true">显示</span><br>
+    <span v-show="num<18">显示</span><br>
+    <button @click="show">点击显示</button>
+    <button @click="add">点击add</button>
+    <hr>
+    <span v-if="num<18">show</span>
+    <span v-else>show_else</span>
+
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {
+            show_true:true,
+            num:15,
+        },
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+            show(){
+                this.show_true=!this.show_true
+            },
+            add(){
+                this.num+=1
+            }
+        },
+    })
+</script>
+</html>

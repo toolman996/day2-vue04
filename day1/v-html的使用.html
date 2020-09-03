@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<div id="coco">
+    {{b}}<br>
+    <span v-text="b"></span><br>
+    <span v-html="b"></span><br>
+    <a href="">首页</a>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {
+            b:'<h1>v-html显示标签本身</h1>',
+            a:'<h1>v-html显示标签本身</h1>'
+        },
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+        },
+    })
+</script>
+</html>

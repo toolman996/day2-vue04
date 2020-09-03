@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<div id="coco">
+    {{str}}<br> <!--取值方式-->
+    {{num}}<br> <!--取值方式-->
+    {{arry[1]}}<br> <!--取值方式-->
+    {{obj.name}}<br> <!--取值方式-->
+    {{a[1].name}} <!--取值方式-->
+
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {
+            str: '字符串',
+            num: 20,
+            arry: [20, 30, 40, 50],
+            obj: {name: 'li', sex: 'nv'},
+            a: [{name: 'name', age: '20'}, {name: 's', age: "18"}]
+        },
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+        },
+    })
+</script>
+</html>
