@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<div id="coco">
+    <span id="num" @click="add">数:{{number}}</span>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {
+            number:66,
+        },
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+            add(){
+                this.number-=1
+            }
+        },
+        //生命周期的第一个钩子函数，该函数在执行时vue实例仅完成了自身事件的绑定和生命周期函数初始化的工作，vue实例中还没有 data el methods等属性
+        beforeCreate:function () {
+            console.log(this.number)
+
+        },
+        //第二个钩子函数  这个函数在执行时vue实例已经初始化了data属性 methods相关方法
+        created:function () {
+            console.log(this.number)
+        },
+        //第三个钩子函数 该钩子函数在执行时vue将el中指定作为范围作为模板编译
+        beforeMount:function () {
+            console.log(this.number)
+            console.log(document.getElementById('num').innerText)
+        },
+        //该函数在执行时已经将数据渲染到了页面并且完成了页面数据的更新
+        mounted:function () {
+            console.log(document.getElementById('num').innerText)
+        },
+        //该函数在data发生数据变化时执行  这个钩子的执行仅仅是vue实例中数据变化但页面显示的依旧是原来的数据
+        beforeUpdate:function () {
+            console.log(this.number)
+            console.log(document.getElementById('num').innerText)
+        },
+        //该函数在data发生数据变化时执行 页面中的数据与vue数据都已经更新完成了
+        updated:function () {
+            console.log(this.number)
+            console.log(document.getElementById('num').innerText)
+        }
+
+
+    })
+</script>
+</html>

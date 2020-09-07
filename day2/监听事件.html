@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<div id="coco">
+    <span @click="click">{{number}}</span>
+    <span>十:{{ten}}</span>
+    <span>个:{{one}}</span>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {
+            number: 66,
+            ten: '',
+            one: '',
+        },
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+            click() {
+                this.number -= 1
+            }
+        },
+        watch: {
+            number() {
+                this.ten = parseInt(this.number / 10)
+                this.one = this.number % 10
+            }
+        }
+    })
+</script>
+</html>

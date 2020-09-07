@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<div id="coco">
+    父组件:<br><span v-for="(value,index) in arry" :key="index">{{index+1}}.{{value}}<br></span>
+    <hr>
+<!--    <sapn @myclick="add"></sapn>-->
+    <one @myclick="add"></one>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+
+
+    let a = {
+        template:`<div>
+                        子组件: <br>  <input type="text" v-model="puts">
+                        <button @click="click">点击</button>
+                   </div>`,
+        data(){
+            return{
+                puts:''
+            }
+        },
+        methods: {
+            click(){
+                this.$emit('myclick',this.puts)
+                this.puts=''
+            }
+        }
+    }
+
+
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {
+            name:'',
+            arry:[]
+        },
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+            add(args){
+                this.name=args
+                // this.arry.push(this.name)
+                this.arry.unshift(this.name)
+            }
+        },
+        components:{
+            one:a
+        }
+    })
+</script>
+</html>

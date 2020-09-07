@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<div id="coco">
+    <!--    组件的使用-->
+    <all></all>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+
+    //局部组件的定义
+    let a={
+        template:`<div>{{name}}组件</div>`,
+        data() {
+            return{
+                name:'第一个'
+            }
+        }
+    }
+    //全局组件的注册
+    // Vue.component('all',a)
+
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {},
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+        },
+        //局部组件的注册
+        components:{
+            all:a
+        }
+    })
+</script>
+</html>

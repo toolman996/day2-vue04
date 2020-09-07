@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    // 如果函数体中只有一条语句 {}可以省略
+    let app = (x, y) => console.log(x + y);
+    app(2, 3)
+
+    // 如果函数的参数只有一个，则可以省略()
+    let app2 = x => console.log(x);
+
+    // 如果函数体中只有一条语句且是return  则 return可以省略
+    let app3 = function (a, b) {
+        return a + b;
+    }
+    let app4 = (a, b) => a + b;
+
+    // 函数体中只有一条语句且是return  参数只有一个
+    let app5 = a => a * 5;
+    let app6 = function (a) {
+        return a * 5;
+    }
+
+    // 如果函数没有参数，则小括号不能省略
+    let app7 = () => console.log("vue")
+    app7()
+
+</script>
+
+</body>
+</html>

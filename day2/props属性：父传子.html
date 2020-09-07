@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <style>
+        .red{
+            color: green;
+        }
+        .cc{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+<div id="coco">
+    <button @click="click">点击</button>
+    {{number}}{{ten}}{{one}}
+    <hr>
+    <one></one>
+    <one :x="ten"></one>
+    <one :x="one"></one>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+
+    let a={
+        template:`<div>{{x}}组件</div>`,
+        data(){
+            return{
+
+            }
+        },
+        props:['x']
+    }
+
+
+
+
+
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {
+            number:66,
+            ten:'',
+            one:''
+        },
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+            click(){
+                this.number-=1
+            }
+        },
+        watch:{
+            number(){
+                this.ten=parseInt(this.number/10)
+                this.one=this.number%10
+            }
+        },
+        components:{
+            one:a
+        }
+    })
+</script>
+</html>
