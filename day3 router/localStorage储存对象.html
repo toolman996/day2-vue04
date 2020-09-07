@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    let a = localStorage;
+
+    // localStorage 会将所有的数据作为字符串去储存
+    a.student = {
+        id: 1,
+        username: " 你",
+        age: 18,
+    }
+    console.log(typeof a.student)
+
+    let b = {
+        id: 2,
+        username: "好",
+        age: 18,
+    }
+    // 储存对象类型的数据，需要将数据进行序列化
+    a.man = JSON.stringify(b);
+
+    // 取出数据 反序列成对象
+    let xx = JSON.parse(a.man);
+    console.log(xx.username)
+
+</script>
+
+</body>
+</html>

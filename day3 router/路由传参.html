@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="coco">
+
+    <router-view></router-view>
+
+</div>
+
+<script src="link/vue.min.js"></script>
+<script src="link/vue-router.3.0.1.js"></script>
+<script>
+
+    let one = {
+        template: `
+        <div>这是组件1
+        <router-link to="/two/1/you">第二页</router-link>
+        </div>
+        `
+    }
+
+    let two = {
+        template: `
+        <div>
+        接受组件1传递的id---->：{{$route.params.num}}
+        <br>
+        用户名--->: {{$route.params.name}}
+</div>
+        `
+    }
+
+    let myRouter = new VueRouter({
+        routes: [
+            {path: '/one', component: one},
+            {path: '/two/:name/:num', component: two},
+            {path: '/', redirect: '/one'},
+        ]
+    })
+
+    new Vue({
+        el: "#coco",
+        data: {},
+        router: myRouter,
+    })
+</script>
+
+</body>
+</html>

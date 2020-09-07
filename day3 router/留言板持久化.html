@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="coco">
+
+    <input type="text" v-model="data">
+        <button @click="add">发表评论</button>
+        <br>
+        <span v-for="(value,index) in arry" :key="index">
+        {{index+1}}.{{value}} <a href="javascript:" @click="del(index)">del</a><br>
+    </span>
+        <span>count:{{arry.length}}条</span><br>
+<!--        <button @click="delall" v-show="JSON.parse(localStorage.date).length!=0">清空评论</button>-->
+        <button @click="delall">清空评论</button>
+</div>
+
+<script src="js/vue.min.js"></script>
+<script src="js/vue-router.3.0.1.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            data: "",
+            // 判断localStorage.msgs 有值 则显示 如果没有  则设置为后面的空列表
+            arry: localStorage.msgs ? JSON.parse(localStorage.msgs) : [],
+        },
+        methods:{
+            add(){
+                if (this.data)
+                    this.arry.push(this.data)
+                    //将数据持久化到浏览器
+                    localStorage.date=JSON.stringify(this.arry)
+                    this.data='';
+            },
+            del(index){
+                this.arry.splice(index,1)
+                localStorage.removeItem('date')
+                localStorage.date=JSON.stringify(this.arry)
+            },
+            delall(){
+              this.arry=''
+              localStorage.removeItem('date')
+            }
+            },
+
+    })
+</script>
+
+</body>
+</html>

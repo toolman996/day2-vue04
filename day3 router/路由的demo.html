@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <style>
+        .a{
+            color: green;
+
+        }
+    </style>
+</head>
+<body>
+<div id="coco">
+    <h3>主页</h3>
+    <!--使用router-link访问指定路由-->
+    <router-link to="/honey">点击跳转组件1</router-link>
+    <router-link to="/two">点击跳转组件二</router-link>
+
+    <!--第四步使用路由-->
+    <router-view></router-view>
+
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="link/vue-router.3.0.1.js"></script>
+<script>
+
+    //第一步定义组件
+    let main={
+        template:`
+        <div>
+        <h1>首页</h1>
+        </div>
+        `
+    }
+    let table={
+        template:`
+        <div>
+        <span class="a">用户页面</span><br>
+        <table border="1px" cellspacing="1">
+        <tr>
+        <td>id</td>
+        <td>name</td>
+        <td>age</td>
+        <td>delect</td>
+        </tr>
+        <tr v-for="(value,index) in x" :key="index">
+        <td>{{value.id}}</td>
+        <td>{{value.name}}</td>
+        <td>{{value.age}}</td>
+        <td><a href="javascript:" @click="del(index)">del</a></td>
+        </tr>
+        </table>
+        </div>
+        `,
+        data(){
+            return{
+            x:[{id:1,name:'名',age:18},
+                {id:2,name:'华',age:18},
+                {id:3,name:'佑',age:18},
+            ]}
+        },
+        methods: {
+            del(args){
+                this.x.splice(args,1)
+            },
+        }
+    }
+
+    //第二步第一组件和路由的映射关系
+    let mylink=new VueRouter({
+        routes:[
+            {path:'/honey',component:main},
+            {path:'/two',component:table},
+            //默认路由
+            {path:'/',component:main},
+            //匹配不到路由
+            {path:'/*',component:table},
+        ]
+    })
+    
+    new Vue({
+        el: '#coco',
+        data: {},
+        methods: {
+        },
+        //第三步注册路由
+        router:mylink,
+    })
+</script>
+</html>
