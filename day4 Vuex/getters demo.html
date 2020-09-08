@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<div id="coco">
+    <one></one>
+    <two></two>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="link/vuex.3.0.1.js"></script>
+<script>
+
+    let one = {
+        template:`
+            <div>组件one <input type="text" v-model="value"> <button @click="push">点击增加</button></div>
+        `,
+        data(){
+            return{
+                value:'',
+            }
+        },
+        methods:{
+            push(){
+                this.$store.commit('commit',parseInt(this.value))
+                this.value=''
+            },
+        }
+    }
+
+    let two = {
+        template:`
+            <div>组件two  数组的和 {{$store.getters.change}}</div>
+        `,
+    }
+
+    let ccokt=new Vuex.Store({
+        state:{
+            number:[20,18,22]
+        },
+        mutations:{
+            commit(state,arg){
+                state.number.push(arg)
+            }
+
+        },
+        //当状态机中state的数据发生改变时，可以通过getters来对**state**中发生变化的数据做对应的操作
+        getters:{
+            change(state){
+                let num=0
+                for (let n in state.number){
+                // for (let n=0;n<state.number.length;n++){
+                // for (let n of state.number){
+                    num+=state.number[n]
+                    // num+=n
+                }
+                // return state.number[0]--
+                return num
+            }
+        }
+    })
+
+
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {},
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+        },
+        components:{
+            one:one,
+            two:two,
+        },
+        store:ccokt,
+    })
+</script>
+</html>

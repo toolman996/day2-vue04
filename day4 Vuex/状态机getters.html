@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<div id="coco">
+    <one></one>
+    <two></two>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="link/vuex.3.0.1.js"></script>
+<script>
+
+    let one = {
+        template:`
+            <div>组件one <button @click="add">点击增加</button></div>
+        `,
+        methods:{
+            add(){
+                this.$store.commit('commit')
+            },
+        }
+    }
+
+    let two = {
+        template:`
+            <div>组件two 获取状态机共享数据  {{$store.state.number}} 获取状态机共享数据相反数  {{$store.getters.pack}}</div>
+        `,
+    }
+
+    let ccokt=new Vuex.Store({
+        state:{
+            number:66
+        },
+        mutations:{
+            commit(state){
+                state.number-=1
+            },
+        },
+        //当状态机中state的数据发生改变时，可以通过getters来对**state**中发生变化的数据做对应的操作
+        getters:{
+            pack(state){
+                return -1*state.number
+            }
+        }
+    })
+
+
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {},
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+        },
+        components:{
+            one:one,
+            two:two,
+        },
+        store:ccokt,
+    })
+</script>
+</html>

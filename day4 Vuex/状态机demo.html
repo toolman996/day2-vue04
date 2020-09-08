@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+<div id="coco">
+    <one></one>
+    <two></two>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="link/vuex.3.0.1.js"></script>
+<script>
+
+    let one = {
+        template:`
+            <div>组件one name:<input type="text" v-model="name"> age:<input type="text" v-model="age"><button @click="click_add">按钮</button></div>
+        `,
+        data(){
+            return{
+                name:'',
+                age:''
+            }
+        },
+        methods:{
+           click_add(){
+               //提交行为并传递参数
+               //  this.$store.commit('commit',[666])
+                this.$store.commit('commit',{name:this.name,age:this.age})
+               this.value=''
+           },
+        }
+    }
+    let two = {
+        template:`
+            <div>组件two 获取状态机共享数据---姓名:{{$store.state.name}} 年龄:{{$store.state.age}}</div>
+        `,
+        }
+
+
+    //定义状态机
+    let statu=new Vuex.Store({
+        //状态：共享的数据
+        state:{
+            name:'莱',
+            age:'20',
+        },
+        //状态机的行为
+        mutations:{
+            commit(state,number){
+                state.name=number.name
+                state.age=number.age
+            }
+        }
+    })
+    //声明 new vue（）实例对象
+    new Vue({
+        //el属性——> vue作用范围
+        el: '#coco',
+        //data属性——> 定义vue的数据,数据与数据之间逗号隔开
+        data: {},
+        //vue 所有的方法都在methods中
+        methods: {
+            //this对象表示当前的vue实例对象
+        },
+        components:{
+            one:one,
+            two:two,
+        },
+        //注册状态机
+        store:statu,
+    })
+</script>
+</html>
