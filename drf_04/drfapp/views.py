@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt,csrf_protect
 from django.utils.decorators import method_decorator
-
+from rest_framework.views import APIView
 
 # @csrf_protect为视图开启csrf认证
 from drfapp.models import Message
@@ -98,6 +98,58 @@ class Demo(View):
                 'msg': '创建失败',
             })
 
+class Bt(APIView):
+    def get(self,request,*args,**kwargs):
+        id=request.query_params.get('num')
+        if id:
+            result=Message.objects.filter(id=id).values().first()
+            if result:
+                return JsonResponse({
+                    'status':200,
+                    'msg':'查询单个信息成功',
+                    'value':result
+                })
+            else:
+                return JsonResponse({
+                    'status': 500,
+                    'msg': '查询单个信息失败',
+                })
+        else:
+            result=Message.objects.all().values()
+            print(result)
+            if result:
+                return JsonResponse({
+                    'status': 200,
+                    'msg': '查询全部信息成功',
+                    'value': list(result)
+                })
+            # else:
+            #     return JsonResponse({
+            #         'status': 500,
+            #         'msg': '查询全部信息失败',
+            #     })
+
+        return JsonResponse({
+            'status':500,
+            'msg':'查询的数据不存在'
+
+            })
+
+    def post(self, request, *args, **kwargs):
+        name=request.data.get('name')
+        age=request.data.get('age')
+        try:
+            Message.objects.create(name=name,age=age)
+            return JsonResponse({
+                'status':200,
+                'msg':'创建成功',
+                'value':{'name':name,'age':age}
+            })
+        except:
+            return JsonResponse({
+                'status': 500,
+                'msg': '创建失败',
+            })
 
 
 

@@ -9,4 +9,5 @@ urlpatterns=[
     path('class_view/',views.Case.as_view()),
     path('class_demo/',views.Demo.as_view()),
     path('class_demo/<str:num>/',views.Demo.as_view()),
+    path('class_bt/',views.Bt.as_view()),
 ]
