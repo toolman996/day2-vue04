@@ -23,6 +23,7 @@ from drf_serializers import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('day/', include('drfSerializer.urls')),
+    path('day4/', include('drfModelSerializers.urls')),
 
     #静态资源配置
     url(r"^media/(?P<path>.*)", serve, {"document_root": settings.MEDIA_ROOT}),
