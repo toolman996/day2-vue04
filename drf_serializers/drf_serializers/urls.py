@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('day/', include('drfSerializer.urls')),
     path('day4/', include('drfModelSerializers.urls')),
+    path('day5/', include('drfFourViewComponent.urls')),
 
     #静态资源配置
     url(r"^media/(?P<path>.*)", serve, {"document_root": settings.MEDIA_ROOT}),

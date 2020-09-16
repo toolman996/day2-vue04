@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework import exceptions
-from drfSerializer.models import Book, Author, Press
+from drfSerializer.models import Book,Press
 
 
 class PressNestedQuery(serializers.ModelSerializer):

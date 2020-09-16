@@ -116,45 +116,88 @@ class CombineApiview(APIView):
             'msg': '删除失败'
         })
 
-    #更新整体单个
+    # #更新整体单个
+    # def put(self, request, *args, **kwargs):
+    #     id=kwargs.get('num')
+    #
+    #     all_data=request.data
+    #     try:
+    #         book_obj=Book.objects.get(id=id)
+    #     except:
+    #         return Response({
+    #             'status':status.HTTP_400_BAD_REQUEST,
+    #             'msg':'书籍不存在,无法完成修改'
+    #         })
+    #     result=Combine(data=all_data,instance=book_obj)
+    #     result.is_valid(raise_exception=True)
+    #     value=result.save()
+    #     return Response({
+    #         'status': status.HTTP_400_BAD_REQUEST,
+    #         'msg': '修改成功',
+    #         'value':Combine(value).data
+    #     })
+    #
+    # #更新局部单个
+    # def patch(self, request, *args, **kwargs):
+    #     id=kwargs.get('num')
+    #
+    #     all_data=request.data
+    #     try:
+    #         book_obj=Book.objects.get(id=id)
+    #     except:
+    #         return Response({
+    #             'status':status.HTTP_400_BAD_REQUEST,
+    #             'msg':'书籍不存在,无法完成修改'
+    #         })
+    #     #更新整体单个和更新局部单个的区别在于 指定 partial=True
+    #     result=Combine(data=all_data,instance=book_obj,partial=True)
+    #     result.is_valid(raise_exception=True)
+    #     value=result.save()
+    #     return Response({
+    #         'status': status.HTTP_400_BAD_REQUEST,
+    #         'msg': '修改成功',
+    #         'value':Combine(value).data
+    #     })
+
+    #群改接口
+
+    #群改接口
     def put(self, request, *args, **kwargs):
-        id=kwargs.get('num')
-
-        all_data=request.data
-        try:
-            book_obj=Book.objects.get(id=id)
-        except:
+        number= kwargs.get('num')
+        all_data = request.data
+        if number and isinstance(all_data,dict):
+            pk=[number,]
+            all_data=[all_data]
+        elif not number and isinstance(all_data,list):
+            pk=[]
+            for value in all_data:
+                id=value.pop('id')
+                if id:
+                    pk.append(id)
+                else:
+                    return Response({
+                        'status': status.HTTP_400_BAD_REQUEST,
+                        'msg': 'id不存在'
+                    })
+        else:
             return Response({
                 'status':status.HTTP_400_BAD_REQUEST,
-                'msg':'书籍不存在,无法完成修改'
+                'msg':'参数类型有误'
             })
-        result=Combine(data=all_data,instance=book_obj)
+        
+        book_obj=[]
+        for resu in pk:
+            try:
+                objects_filter = Book.objects.get(id=resu)
+                book_obj.append(objects_filter)
+            except:
+                index = pk.index(resu)
+                all_data.pop(index)
+        result = Combine(data=all_data, instance=book_obj, partial=True, many=True)
         result.is_valid(raise_exception=True)
-        value=result.save()
+        save = result.save()
         return Response({
-            'status': status.HTTP_400_BAD_REQUEST,
-            'msg': '修改成功',
-            'value':Combine(value).data
+            'status':status.HTTP_200_OK,
+            'msg':'修改成功',
         })
-
-    #更新局部单个
-    def patch(self, request, *args, **kwargs):
-        id=kwargs.get('num')
-
-        all_data=request.data
-        try:
-            book_obj=Book.objects.get(id=id)
-        except:
-            return Response({
-                'status':status.HTTP_400_BAD_REQUEST,
-                'msg':'书籍不存在,无法完成修改'
-            })
-        #更新整体单个和更新局部单个的区别在于 指定 partial=True
-        result=Combine(data=all_data,instance=book_obj,partial=True)
-        result.is_valid(raise_exception=True)
-        value=result.save()
-        return Response({
-            'status': status.HTTP_400_BAD_REQUEST,
-            'msg': '修改成功',
-            'value':Combine(value).data
-        })
+            
